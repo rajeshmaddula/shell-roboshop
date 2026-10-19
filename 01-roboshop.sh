@@ -1,4 +1,4 @@
-#!bin/bash
+#!/bin/bash
 
 SG_ID="sg-0574b9e33f7cce2ef"
 AMI_ID="ami-0055977a6e828a4f4"
@@ -14,7 +14,7 @@ INSTANCE_ID=$(aws ec2 run-instances \
         --output text)
 
         if [ $instance == frontend ]; then
-        IP=$(
+           IP=$(
             aws ec2 describe-instances \
             --instance-ids $INSTANCE_ID \  
             --query 'Reservations[].Instances[].PublicIpAddress' \   
