@@ -15,9 +15,9 @@ INSTANCE_ID=$(aws ec2 run-instances \
 
         if [ $instance == frontend ]; then
         IP=$(
-            aws ec2 describe-instances  
-            --instance-ids $INSTANCE_ID     
-            --query 'Reservations[].Instances[].PublicIpAddress'     
+            aws ec2 describe-instances  \
+            --instance-ids $INSTANCE_ID   \  
+            --query 'Reservations[].Instances[].PublicIpAddress'  \   
             --output text
             )
         else
