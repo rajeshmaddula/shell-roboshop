@@ -24,7 +24,7 @@ do
     --output text
       
    )
-   RECORD_NAME=$DOMAIN_NAME
+   RECORD_NAME="$DOMAIN_NAME"
 
    IP=$(
          aws ec2 describe-instances \
@@ -61,7 +61,7 @@ do
     }
     '
 
-   echo "record updated for $instance"
+   echo "record updated for $INSTANCE"
 
   done
 
