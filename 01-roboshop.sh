@@ -20,19 +20,19 @@ do
       IP=$(
          aws ec2 describe-instances \
     --instance-ids $INSTANCE_ID \
-    --query 'Reservations[*].Instances[*].PublicIpAddress' \
+    --query 'Reservations[0].Instances[0].PublicIpAddress' \
     --output text
       
    )
    RECORD_NAME=$DOMAIN_NAME
-   else
+
    IP=$(
          aws ec2 describe-instances \
     --instance-ids $INSTANCE_ID \
     --query 'Reservations[*].Instances[*].PrivateIpAddress' \
     --output text
    )
-   RECORD_NAME="$INSTANCE.$DOMAIN"
+   RECORD_NAME="$INSTANCE.$DOMAIN_NAME"
 
    fi
 
@@ -62,7 +62,7 @@ do
     '
 
    echo "record updated for $instance"
-   
+
   done
 
 
