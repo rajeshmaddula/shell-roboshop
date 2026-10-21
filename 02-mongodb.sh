@@ -26,33 +26,20 @@ else
 fi
 }
 
-for package in $@
-do 
-  dnf list installed $package &>>$LOGS_FILE
-  if [ $? -ne 0 ]; then
-     echo "$package is not installed, installing now"
-     dnf install $package -y &>> $LOGS_FILE
-     VALIDATE $? "$package installation"
-      
-  else
-     echo -e "$Y $package  already installed ,skipping $N"
-  fi
-done
-
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Copying Mongo Repo"
 
-dnf install mongodb-org -y 
+dnf install mongodb-org -y &>>$LOGS_FILE
 VALIDATE $? "installing mongodb server"
 
-systemctl enable mongod 
+systemctl enable mongod &>>$LOGS_FILE
 VALIDATE $? "Enable mongod"
 
-systemctl start mongod 
+systemctl start mongod &>>$LOGS_FILE
 VALIDATE $? "Start mongod"
 
 sed -i 's/127.0.0.0/0.0.0.0/g' /etc/mongod.conf
 VALIDATE $? "Allowing remote connections"
 
-systemctl restart mongod
+systemctl restart mongod &>>$LOGS_FILE
 VALIDATE $? "Restarted MongoDB"
