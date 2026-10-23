@@ -42,7 +42,7 @@ if [ $? -ne 0 ]; then
 else
     echo -e "Roboshop user already exits ...$Y skipping $N "
 fi
-mkdir -p /app
+mkdir -p /app &>>$LOGS_FILE
 VALIDATE $? "Creating app directory" 
 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
