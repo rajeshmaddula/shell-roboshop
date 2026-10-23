@@ -3,6 +3,8 @@
 USERID=$(id -u)
 LOGS_FOLDER="/var/log/shell-roboshop"
 LOGS_FILE="$LOGS_FOLDER/$0.log"
+SCRIPT_DIR=$PWD
+MONGODB_HOST=mongodb.daws88s.online
 
 R="\e[31m"
 G="\e[32m"
@@ -60,7 +62,7 @@ VALIDATE $? "Unzip catalogue code"
 npm install &>>$LOGS_FILE
 VALIDATE $? "Installing dependencieds"
 
-cp catalogue.service /etc/systemd/system/catalogue.service
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "Creatingctl systemctl service"
 
 systemctl daemon-reload
