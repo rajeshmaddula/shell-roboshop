@@ -27,16 +27,20 @@ fi
 }
 
 dnf module disable nodejs -y &>>$LOGS_FILE
-VALIDATE $? "Disabling NodJS Default version"
+    VALIDATE $? "Disabling NodJS Default version"
 
 dnf module enable nodejs:20 -y &>>$LOGS_FILE
-VALIDATE $? "Enabled Nodjs 20"
+    VALIDATE $? "Enabled Nodjs 20"
 
 dnf install nodejs -y &>>$LOGS_FILE
-VALIDATE $? "NodeJS installation"
+    VALIDATE $? "NodeJS installation"
 
-useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
-VALIDATE $? "System user"
+id roboshop &>>$LOGS_FILE
+if [ $? -ne 0 ]; then
+    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop &>>$LOGS_FILE
+    VALIDATE $? "System user"
+else
+    echo -e "Roboshop user already exits ...$Y skipping $N "
 
 mkdir -p /app
 VALIDATE $? "Creating app directory" 
