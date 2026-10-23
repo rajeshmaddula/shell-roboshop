@@ -26,7 +26,7 @@ else
 fi
 }
 
-cp mongo.repos /etc/yum.repos.d/mongo.repo
+cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Coping mongo repo"
 
 dnf install nginx -y &>>$LOGS_FILE
