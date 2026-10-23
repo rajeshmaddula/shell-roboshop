@@ -30,7 +30,7 @@ cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Coping mongo repo"
 
 dnf install mongodb-org -y &>>$LOGS_FILE
-VALIDATE $? "Nginx installation"
+VALIDATE $? "Installing MongoDB server"
 
 systemctl enable mongod 
 VALIDATE $? "Enabled MongoDB"
