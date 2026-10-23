@@ -7,7 +7,7 @@ LOGS_FILE="$LOGS_FOLDER/$0.log"
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
-N="\e[34m"
+N="\e[0m"
 
 
 if [ $USERID -ne 0 ]; then
@@ -26,20 +26,21 @@ else
 fi
 }
 
-cp mongo.repo /etc/yum.repos.d/mongo.repo
-VALIDATE $? "Copying Mongo Repo"
+cp mongo.repos /etc/yum.repos.d/mongo.repo
+VALIDATE $? "Coping mongo repo"
 
-dnf install mongodb-org -y &>>$LOGS_FILE
-VALIDATE $? "installing mongodb server"
+dnf install nginx -y &>>$LOGS_FILE
+VALIDATE $? "Nginx installation"
 
-systemctl enable mongod &>>$LOGS_FILE
-VALIDATE $? "Enable mongod"
+systemctl enable mongod 
+VALIDATE $? "Enabled MongoDB"
 
-systemctl start mongod &>>$LOGS_FILE
-VALIDATE $? "Start mongod"
+systemctl start mongod 
+VALIDATE $? "Started MongoDB"
 
-sed -i 's/127.0.0.0/0.0.0.0/g' /etc/mongod.conf
+sed -i s/127.0.0.0/0.0.0.0/g /etc/mongod.conf
 VALIDATE $? "Allowing remote connections"
 
-systemctl restart mongod &>>$LOGS_FILE
-VALIDATE $? "Restarted MongoDB"
+systemctl restart mongod
+VALIDATE $? "Retsrated MongoDB"
+
