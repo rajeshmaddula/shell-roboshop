@@ -29,7 +29,7 @@ fi
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "Coping mongo repo"
 
-dnf install nginx -y &>>$LOGS_FILE
+dnf install mongodb-org -y &>>$LOGS_FILE
 VALIDATE $? "Nginx installation"
 
 systemctl enable mongod 
